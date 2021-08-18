@@ -1,12 +1,28 @@
-import requests
-import json
+import requests, sys, csv
 
+
+#MSW, Mixed Sweet Blend, crudes
+acronym = "none"
+name = "none"
+database = "none"
 URL = "https://www.crudemonitor.ca/savePHPExcel.php"
 
-acronym = "MSW"
-name = "Mixed Sweet Blend"
-database = "crudes"
 
+if("--acronym" in sys.argv):
+    acronym = sys.argv[sys.argv.index("--acronym")+1]
+
+
+#reading CSV file to find the other 2 parameters 
+with open('Crude Monitor Parameters.csv', newline = '') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        if acronym == row['acr']:
+            acronym = row['acr']
+            name = row['name']
+            database = row['database']
+            break
+                        
+    
 form_data = {
     "date1noscript": "",
     "date2noscript": "",
@@ -25,3 +41,5 @@ form_data = {
 
 data = requests.post(url=URL, data=form_data)
 print(data.text)
+print(reader)
+
