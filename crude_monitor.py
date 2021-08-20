@@ -27,8 +27,6 @@ if("--end_date" in sys.argv):
 if("--operation" in sys.argv):
     if sys.argv[sys.argv.index("--operation")+1] == '<':
         operation = False
-    else:
-        operation = True
 
 if("--limit" in sys.argv):
     limit = sys.argv[sys.argv.index("--limit")+1]
